@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """
-	Locked boxes method
+Locked boxes method
 """
+
+
 def canUnlockAll(boxes):
 	key_list = [0]
 
