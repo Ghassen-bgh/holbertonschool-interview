@@ -23,9 +23,12 @@ def minimumOperations(n):
     i = 2
     o = 0
     while (n != 1):
-        if (ispremium(i) and n % i == 0):
-            o += i
-            n /= i
+        if (ispremium(i)):
+            if (n % i == 0):
+                o += i
+                n /= i
+            else:
+                i += 1
         else:
             i += 1
     return o
