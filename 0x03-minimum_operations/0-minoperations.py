@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Module for minimumOperations method.
 """
+
+
 def ispremium(n):
     """Method to check if a number is prime.
     """
@@ -10,6 +12,7 @@ def ispremium(n):
         if n % i == 0:
             return False
     return True
+
 
 def minimumOperations(n):
     """Method to calculate the fewest number of operations needed to result in
