@@ -10,11 +10,12 @@
 int verify_grid(int grid[3][3])
 {
 	int i, j;
-	for(i = 0; i < 3; i++)
+
+	for (i = 0; i < 3; i++)
 	{
-		for(j = 0; j < 3; j++)
+		for (j = 0; j < 3; j++)
 		{
-			if(grid[i][j] < 0)
+			if (grid[i][j] < 0)
 			{
 				return (0);
 			}
@@ -72,16 +73,16 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	int grid3[3][3];
 	int type = 0;
 
-	for ( x = 0; x < 3; x++)
-		for ( y = 0; y < 3; y++)
+	for (x = 0; x < 3; x++)
+		for (y = 0; y < 3; y++)
 			grid1[x][y] = grid1[x][y] + grid2[x][y];
 	type = verify_grid(grid1);
-	if(type == 0)
+	if (type == 0)
 	{
 		printf("=\n");
 		print_grid(grid1);
 	}
-	while(type == 0)
+	while (type == 0)
 	{
 		copy_grid(grid1, grid3);
 		for (x = 0; x < 3; x++)
