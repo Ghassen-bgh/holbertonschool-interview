@@ -39,7 +39,7 @@ void slide_left(int *line, size_t size)
  */
 void slide_right(int *line, size_t size)
 {
-    size_t i, j;
+    size_t i, j= size - 1;
 
     for (i = size - 1; (int)i >= 0 && (int)j >= 0; i--)
     {
