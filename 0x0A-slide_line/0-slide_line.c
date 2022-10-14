@@ -41,21 +41,15 @@ void slide_right(int *line, size_t size)
 {
     size_t i, j;
 
-    for (i = size - 1; i > 0; i--)
+    for (i = size - 1; i >= 0 && j >= 0; i--)
     {
+        while (line[j] == 0 && j >= 0 && j - 1 >= 0)
+            j--;
         if (line[i] == 0)
-        {
-            for (j = i - 1; j > 0; j--)
-            {
-                if (line[j] != 0)
-                {
-                    swap(&line[i], &line[j]);
-                    break;
-                }
-            }
-        }
+            swap(&line[i], &line[j]);
+        j--;
     }
-}
+    }
 
 /**
  * slide_line - slides and merges an array of integers
