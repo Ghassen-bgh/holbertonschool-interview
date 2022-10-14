@@ -60,28 +60,34 @@ void slide_right(int *line, size_t size)
  */
 int slide_line(int *line, size_t size, int direction)
 {
-    size_t i;
+	size_t i = 0;
 
-    if (line == NULL || (direction != SLIDE_LEFT && direction != SLIDE_RIGHT))
-        return (0);
-
-    if (direction == SLIDE_LEFT)
-        slide_left(line, size);
-    else
-        slide_right(line, size);
-
-    for (i = 0; i < size - 1; i++)
-    {
-        if (line[i] == line[i + 1])
-        {
-            line[i] += line[i + 1];
-            line[i + 1] = 0;
-            if (direction == SLIDE_LEFT)
-                slide_left(line, size);
-            else
-                slide_right(line, size);
-        }
-    }
-
-    return (1);
+	if (direction == SLIDE_LEFT)
+	{
+		slide_left(line, size);
+		for (i = 0; i < size; i++)
+		{
+			if (line[i] == line[i + 1])
+			{
+				line[i] = line[i] + line[i + 1];
+				line[i + 1] = 0;
+			}
+		}
+		slide_left(line, size);
+		return (1);
+	} else if (direction == SLIDE_RIGHT)
+	{
+		slide_right(line, size);
+		for (i = size - 1; (int) i >= 0; i--)
+		{
+			if (line[i] == line[i - 1])
+			{
+				line[i] = line[i] + line[i - 1];
+				line[i - 1] = 0;
+			}
+		}
+		slide_right(line, size);
+		return (1);
+	}
+	return (0);
 }
