@@ -20,21 +20,15 @@ void swap(int *a, int *b)
  */
 void slide_left(int *line, size_t size)
 {
-    size_t i, j;
+    size_t i, j = 0;
 
-    for (i = 0; i < size; i++)
+    for (i = 0; i < size && j < size; i++)
     {
+        while (line[j] == 0 && j < size && j + 1 < size)
+            j++;
         if (line[i] == 0)
-        {
-            for (j = i + 1; j < size; j++)
-            {
-                if (line[j] != 0)
-                {
-                    swap(&line[i], &line[j]);
-                    break;
-                }
-            }
-        }
+            swap(&line[i], &line[j]);
+        j++;
     }
 }
 
