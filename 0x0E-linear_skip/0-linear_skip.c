@@ -26,19 +26,17 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 	}
 	if (!tmp->express)
 	{
-		tmp = tmp->express;
-		while (tmp->next)
-			tmp = tmp->next;
+		for (list = tmp; list->next; list = list->next)
+			;
 		printf("Value found between indexes [%lu] and [%lu]/n",
-		       tmp->index, tmp->express->index);
+		       tmp->index, list->index);
 	}
-	while (tmp)
+	for (list = tmp; list != tmp->express; list = list->next)
 	{
 		printf("Value checked at index [%lu] = [%d]/n",
-		       tmp->index, tmp->n);
-		if (tmp->n == value)
-			return (tmp);
-		tmp = tmp->next;
+		       list->index, list->n);
+		if (list->n == value)
+			return (list);
 	}
 	return (NULL);
 }
