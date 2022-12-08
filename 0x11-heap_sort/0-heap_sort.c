@@ -28,6 +28,7 @@ void heap_sort(int *array, size_t size)
 	for (i = last; i > 0; i--)
 	{
 		swap(&array[0], &array[i]);
+		print_array(array, size);
 		heap(array, size, 0, i - 1);
 	}
 }
@@ -54,6 +55,7 @@ void heap(int *array, int size, int parent, int last)
 	if (max != parent)
 	{
 		swap(&array[parent], &array[max]);
+		print_array(array, size);
 		heap(array, size, max, last);
 	}
 }
