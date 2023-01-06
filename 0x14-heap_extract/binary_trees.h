@@ -1,3 +1,8 @@
+#ifndef HEAP_EXTRACT_H
+#define HEAP_EXTRACT_H
+
+#include <stdlib.h>
+
 /**
  * struct binary_tree_s - Binary tree node
  *
@@ -15,3 +20,5 @@ struct binary_tree_s
 } heap_t;
 
 typedef struct binary_tree_s binary_tree_t;
+
+#endif
