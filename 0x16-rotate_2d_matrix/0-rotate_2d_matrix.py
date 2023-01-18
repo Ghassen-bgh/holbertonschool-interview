@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """ 0-rotate_2d_matrix """
+
+
 def rotate_2d_matrix(matrix):
     """ Rotate a 2D matrix 90 degrees clockwise """
     # Get the dimensions of the matrix
@@ -11,7 +13,6 @@ def rotate_2d_matrix(matrix):
     for row in range(rows):
         # Loop through the columns of the original matrix
         for col in range(cols):
-        # Copy the value from the original matrix to the new matrix
             new_matrix[col][rows - row - 1] = matrix[row][col]
     # Copy the values from the new matrix to the original matrix
     for row in range(rows):
