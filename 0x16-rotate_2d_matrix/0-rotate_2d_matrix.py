@@ -17,4 +17,3 @@ def rotate_2d_matrix(matrix):
     for row in range(rows):
         for col in range(cols):
             matrix[row][col] = new_matrix[row][col]
-
