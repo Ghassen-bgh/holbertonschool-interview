@@ -6,36 +6,68 @@ The N queens puzzle
 
 import sys
 
-def is_valid(board, row, col, n):
-    for i in range(row):
-        if board[i] == col or \
-           board[i] + i == col + row or \
-           board[i] - i == col - row:
-            return False
-    return True
+if len(sys.argv) != 2:
+    print("Usage: nqueens N")
+    exit(1)
+try:
+    int(sys.argv[1])
+except Exception:
+    print("N must be a number")
+    exit(1)
+if int(sys.argv[1]) < 4:
+    print("N must be at least 4")
+    exit(1)
+if not isinstance(int(sys.argv[1]), int):
+    print("N must be a number")
+    exit(1)
 
-def solve(board, row, n):
-    if row == n:
-        print(" ".join(str(x+1) for x in board))
+n = int(sys.argv[1])
+
+
+def is_valid_state(state, n):
+    return len(state) == n
+
+
+def get_candidates(state, n):
+    if not state:
+        return range(n)
+
+    position = len(state)
+    candidates = set(range(n))
+    for row, col in enumerate(state):
+        candidates.discard(col)
+        dist = position - row
+        candidates.discard(col + dist)
+        candidates.discard(col - dist)
+    return candidates
+
+
+def search(state, solutions, n):
+    if is_valid_state(state, n):
+        state_string = state_to_string(state)
+        solutions.append(state_string)
         return
-    for col in range(n):
-        if is_valid(board, row, col, n):
-            board[row] = col
-            solve(board, row+1, n)
 
-def nqueens(n):
-    if not n.isnumeric():
-        print("N must be a number")
-        return 1
-    n = int(n)
-    if n < 4:
-        print("N must be at least 4")
-        return 1
-    board = [-1] * n
-    solve(board, 0, n)
+    for candidate in get_candidates(state, n):
+        state.append(candidate)
+        search(state, solutions, n)
+        state.pop()
 
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
-    nqueens(sys.argv[1])
+
+def solveNQueens(n):
+    solutions = []
+    state = []
+    search(state, solutions, n)
+    return solutions
+
+
+def state_to_string(state):
+    res = []
+
+    for x, y in enumerate(state):
+        res.append([x, y])
+    return res
+
+
+for solution in solveNQueens(n):
+    print(solution)
