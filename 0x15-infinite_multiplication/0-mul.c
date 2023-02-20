@@ -1,100 +1,102 @@
 #include "holberton.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 /**
- * mul - multiplies two integers
- * @num1: first integer
- * @num2: second integer
- *
- * Return: product of num1 and num2
+ * checknumber - Verify that a string is numeric
+ * @string: A string
+ * Return: 1 if valid, 0 if invalid
  */
-int mul(int *num1, int *num2)
+int checknumber(char *string)
 {
-	int i, j;
-	int len1, len2, sum, n1, n2 = 0;
-	int *res;
+	int i;
+	char c;
 
-	len1 = strlen(num1);
-	len2 = strlen(num2);
-
-	res = calloc(len1 + len2, sizeof(len1 + len2));
-	if (res == NULL)
-		return (0);
-
-	for (i = len1 - 1; i >= 0; i--)
+	for (i = 0; string[i]; i++)
 	{
-		n1 = num1[i] - '0';
-		n2 = 0;
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			n2 = num2[j] - '0';
-			sum = n1 * n2 + res[i + j + 1];
-			res[i + j + 1] = sum % 10;
-			res[i + j] += sum / 10;
-		}
+		c = string[i];
+		if (c < '0' || c > '9')
+			return (0);
 	}
-	print_num(res, len1 + len2);
-	free(res);
+
 	return (1);
 }
 
 /**
- * print_num - prints an array of integers like a number
- * @res: array of integers
- * @size: size of the array of integers
+ * print_string - Prints a string
+ *
+ * @string: A string
  */
-
-void print_num(int *res, int size)
+void print_string(char *string)
 {
-	int i = 0;
+	int i;
 
-	if (!res && !size)
-	{
-		printf("0\n");
-		return;
-	}
-	while (res[i] == 0)
-		i++;
-	for (; i < size; i++)
-		printf("%d", res[i]);
-	printf("\n");
+	for (i = 0; string[i]; i++)
+		_putchar(string[i]);
+	_putchar('\n');
 }
 
 /**
-* main - multiplies two positive numbers
-* @argc: number of arguments
-* @argv: array of arguments
-* Return: 0 on success, 98 on error
-*/
+ * _strlen - Calculates the length of a string
+ *
+ * @str: A string
+ *
+ * Return: The number of bytes in the string excluding the null byte
+ */
+size_t _strlen(char *str)
+{
+	size_t i = 0;
 
+	while (str[i++])
+		continue;
+
+	return (--i);
+}
+
+/**
+ * main - multiply two large integers and prints the result
+ * @argc: Command line argument count
+ * @argv: Command line arguments
+ * Return: 1 on success, 98 on failure.
+ */
 int main(int argc, char **argv)
 {
-	int i, j = 0;
+	char *a, *b, digit_a, digit_b, sum;
+	char *result;
+	int i = 0, j;
+	size_t result_length, a_length, b_length, k;
 
-	if (argc != 3)
+	if (argc != 3 || !checknumber(argv[1]) || !checknumber(argv[2]))
 	{
-		printf("Error\n");
+		print_string("Error");
 		exit(98);
 	}
-	for (i = 1; argv[i]; i++)
+	a = argv[1];
+	b = argv[2];
+	a_length = _strlen(a);
+	b_length = _strlen(b);
+	result_length = a_length + b_length;
+	result = (char *)malloc(result_length);
+	while ((size_t)i < result_length)
+		result[i++] = 0;
+	for (i = a_length - 1; i >= 0; i--)
 	{
-		for (j = 0; argv[i][j]; j++)
+		digit_a = a[i] - '0';
+		for (j = b_length - 1; j >= 0; j--)
 		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
+			digit_b = b[j] - '0';
+			k = result_length - 1 - (b_length - j - 1) - (a_length - i - 1);
+			result[k] += digit_a * digit_b;
+			for (sum = result[k]; sum > 9; sum = result[k])
 			{
-				printf("Error\n");
-				exit(98);
+				result[k--] = sum % 10;
+				result[k] += sum / 10;
 			}
 		}
 	}
-	if (*argv[1] == '0' || *argv[2] == '0')
-
-		print_num(NULL, 0);
-	if (!mul(argv[1], argv[2]))
-	{
-		printf("Error\n");
-		exit(98);
-	}
-	return (0);
+	for (i = k; (size_t)i < result_length; i++)
+		result[i] += '0';
+	while (result[k] == '0' && k < result_length - 1)
+		k++;
+	print_string(result + k);
+	free(result);
+	return (EXIT_SUCCESS);
 }
