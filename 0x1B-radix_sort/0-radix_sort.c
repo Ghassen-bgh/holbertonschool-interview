@@ -1,4 +1,10 @@
 #include "sort.h"
+/**
+ * get_max - get the max value in an array
+ * @array: array to get max value from
+ * @size: size of array
+ * Return: max value
+ */
 
 // Function to get the maximum value in an array
 int get_max(int *array, size_t size) {
@@ -10,6 +16,16 @@ int get_max(int *array, size_t size) {
     }
     return max;
 }
+
+/**
+ * radix_sort - sort an array of integers using LSD radix sort
+ * @array: array to sort
+ * @size: size of array
+ * Return: void
+ * Description: LSD radix sort is a non-comparative integer sorting algorithm
+ * that sorts data with integer keys by grouping keys by the individual digits
+ * which share the same significant position and value (place value).
+*/
 
 // Function to perform the LSD radix sort algorithm
 void radix_sort(int *array, size_t size) {
