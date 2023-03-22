@@ -44,7 +44,7 @@ void radix_sort(int *array, size_t size)
 			count[j] = 0;
 
 
-		for (size_t i = 0; i < size; i++)
+		for ( i = 0; i < size; i++)
 			count[(array[i] / exp) % 10]++;
 
 		for ( j = 1; j < 10; j++)
