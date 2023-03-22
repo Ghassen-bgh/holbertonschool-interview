@@ -32,15 +32,15 @@ int get_max(int *array, size_t size)
 
 void radix_sort(int *array, size_t size)
 {
-	if (size <= 1)
-		return;
-
 	int max = get_max(array, size);
 	int exp;
 	size_t i;
 	int j;
 	int *count = (int *) malloc(sizeof(int) * 10);
 	int *output = (int *) malloc(sizeof(int) * size);
+
+		if (size <= 1)
+		return;
 
 	for (exp = 1; max / exp > 0; exp *= 10)
 	{
