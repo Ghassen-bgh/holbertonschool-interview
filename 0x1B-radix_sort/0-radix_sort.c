@@ -1,4 +1,5 @@
 #include "sort.h"
+
 /**
  * get_max - get the max value in an array
  * @array: array to get max value from
@@ -11,7 +12,7 @@ int get_max(int *array, size_t size)
 	int max = array[0];
 	size_t i;
 
-	for ( i = 1; i < size; i++)
+	for (i = 1; i < size; i++)
 	{
 		if (array[i] > max)
 			max = array[i];
@@ -31,23 +32,25 @@ int get_max(int *array, size_t size)
 
 void radix_sort(int *array, size_t size)
 {
+	if (size <= 1)
+		return;
+
 	int max = get_max(array, size);
 	int exp;
 	size_t i;
 	int j;
-	int *count = (int *)malloc(sizeof(int) * 10);
-	int *output = (int *)malloc(sizeof(int) * size);
+	int *count = (int *) malloc(sizeof(int) * 10);
+	int *output = (int *) malloc(sizeof(int) * size);
 
-	for ( exp = 1; max / exp > 0; exp *= 10)
+	for (exp = 1; max / exp > 0; exp *= 10)
 	{
-		for ( j = 0; j < 10; j++)
+		for (j = 0; j < 10; j++)
 			count[j] = 0;
 
-
-		for ( i = 0; i < size; i++)
+		for (i = 0; i < size; i++)
 			count[(array[i] / exp) % 10]++;
 
-		for ( j = 1; j < 10; j++)
+		for (j = 1; j < 10; j++)
 			count[j] += count[j - 1];
 
 		for (j = size - 1; j >= 0; j--)
@@ -56,16 +59,8 @@ void radix_sort(int *array, size_t size)
 			count[(array[j] / exp) % 10]--;
 		}
 
-		for ( i = 0; i < size; i++)
+		for (i = 0; i < size; i++)
 			array[i] = output[i];
-
-
-		for ( i = 0; i < size; i++)
-			if (i == size - 1)
-				printf("%d", array[i]);
-			else
-				printf("%d, ", array[i]);
-		printf("\n");
 	}
 
 	free(count);
