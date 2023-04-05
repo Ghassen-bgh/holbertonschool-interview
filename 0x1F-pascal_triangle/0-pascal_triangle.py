@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 """
-pascal_triangle - returns a list of lists of integers representing the Pascal’s triangle of n  (n > 0)
+pascal_triangle - returns a list of lists of integers
+representing the Pascal’s triangle of n  (n > 0)
 """
+
+
 def pascal_triangle(n):
     """
     returns a list of lists of integers representing the Pascal’s triangle of n
