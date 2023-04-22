@@ -12,29 +12,40 @@
 int check_substring(char const *s,
 	char const **words, int nb_words, int word_len, int start_index)
 {
-	int remaining = nb_words;
-	char const *p = s + start_index;
+	int *word_used = NULL;
+	int i, j, k;
 
-	while (remaining > 0)
+	word_used = malloc(sizeof(*word_used) * nb_words);
+	if (!word_used)
+		return (0);
+	for (i = 0; i < nb_words; i++)
+		word_used[i] = 0;
+
+	for (i = start_index; i < start_index + nb_words * word_len; i += word_len)
 	{
-		int found = 0;
-
-		for (int j = 0; j < nb_words; j++)
+		for (j = 0; j < nb_words; j++)
 		{
-			if (strncmp(p, words[j], word_len) == 0)
+			if (word_used[j])
+				continue;
+			for (k = 0; k < word_len; k++)
 			{
-				p += word_len;
-				found = 1;
-				remaining--;
+				if (s[i + k] != words[j][k])
+					break;
+			}
+			if (k == word_len)
+			{
+				word_used[j] = 1;
 				break;
 			}
 		}
-
-		if (!found)
+		if (j == nb_words)
 		{
+			free(word_used);
 			return (0);
 		}
 	}
+
+	free(word_used);
 	return (1);
 }
 
@@ -51,34 +62,27 @@ int check_substring(char const *s,
 */
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
-	int s_len = strlen(s);
+	int *result = NULL;
 	int word_len = strlen(words[0]);
-	int substr_len = word_len * nb_words;
+	int s_len = strlen(s);
+	int nb_substrings = s_len - nb_words * word_len + 1;
 
-	if (s_len < substr_len || nb_words == 0)
-	{
-		*n = 0;
+	*n = 0;
+	if (nb_substrings <= 0)
 		return (NULL);
-	}
 
-	int *result = (int *) malloc(sizeof(int) * s_len);
-	int result_count = 0;
+	result = malloc(sizeof(*result) * nb_substrings);
+	if (!result)
+		return (NULL);
 
-	for (int i = 0; i <= s_len - substr_len; i++)
+	for (int i = 0; i < nb_substrings; i++)
 	{
 		if (check_substring(s, words, nb_words, word_len, i))
 		{
-			result[result_count++] = i;
+			result[*n] = i;
+			(*n)++;
 		}
 	}
 
-	if (result_count == 0)
-	{
-		free(result);
-		*n = 0;
-		return (NULL);
-	}
-
-	*n = result_count;
 	return (result);
 }
