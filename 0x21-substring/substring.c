@@ -66,6 +66,7 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	int word_len = strlen(words[0]);
 	int s_len = strlen(s);
 	int nb_substrings = s_len - nb_words * word_len + 1;
+	int i;
 
 	*n = 0;
 	if (nb_substrings <= 0)
