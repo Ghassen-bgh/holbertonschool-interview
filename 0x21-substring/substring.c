@@ -75,7 +75,7 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	if (!result)
 		return (NULL);
 
-	for (int i = 0; i < nb_substrings; i++)
+	for (i = 0; i < nb_substrings; i++)
 	{
 		if (check_substring(s, words, nb_words, word_len, i))
 		{
