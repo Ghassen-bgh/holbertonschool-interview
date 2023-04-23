@@ -31,6 +31,8 @@ int height(const binary_tree_t *root)
 /**
  * is_balanced - checks if a binary tree is balanced
  * @root: root node
+ * min: minimum value
+ * max: maximum value
  * Return: 1 if balanced, 0 otherwise
 */
 int isBST(const binary_tree_t *root, int min, int max)
