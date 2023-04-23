@@ -9,7 +9,7 @@
  * @b: second integer
  * Return: the max of a and b
 */
-int max (int a, int b)
+int max(int a, int b)
 {
 	if (a > b)
 		return (a);
@@ -29,10 +29,10 @@ int height(const binary_tree_t *root)
 }
 
 /**
- * is_balanced - checks if a binary tree is balanced
+ * isBST - checks if a binary tree is balanced
  * @root: root node
- * min: minimum value
- * max: maximum value
+ * @min: minimum value
+ * @max: maximum value
  * Return: 1 if balanced, 0 otherwise
 */
 int isBST(const binary_tree_t *root, int min, int max)
