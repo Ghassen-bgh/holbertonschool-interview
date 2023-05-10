@@ -29,7 +29,7 @@ def isWinner(x, nums):
                     break
             if not canPlay:
                 return player
-        return (player + 1) % 2
+        return player  # Changed this line
 
     wins = [0, 0]
     for i in range(x):
@@ -44,4 +44,3 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return None
-
