@@ -1,46 +1,45 @@
 #!/usr/bin/python3
-"""prime game"""
+"""0. Prime Game"""
+
+
+def isPrime(n):
+    """Check if n is a prime number"""
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def addPrime(n, primes):
+    """Add primes to the list"""
+    last_prime = primes[-1]
+    if n > last_prime:
+        for i in range(last_prime + 1, n + 1):
+            if isPrime(i):
+                primes.append(i)
+            else:
+                primes.append(0)
+
 
 def isWinner(x, nums):
-    """Determine the winner of a game of prime numbers"""
-    def getPrimes(n):
-        """Get all primes up to n"""
-        if n < 2:
-            return []
-        primes = [True] * (n+1)
-        primes[0] = primes[1] = False
-        for i in range(2, int(n**0.5)+1):
-            if primes[i]:
-                for j in range(i*i, n+1, i):
-                    primes[j] = False
-        return [i for i in range(2, n+1) if primes[i]]
+    """Determine the winner of each game"""
+    result = {"Maria": 0, "Ben": 0}
+    primes = [0, 0, 2]
+    addPrime(max(nums), primes)
 
-    def playGame(primes, n):
-        """Play the game"""
-        player = 0
-        remaining = set(primes)
-        while remaining:
-            canPlay = False
-            for p in primes:
-                if p in remaining:
-                    canPlay = True
-                    remaining.difference_update(set(range(p, n+1, p)))
-                    player = (player + 1) % 2
-                    break
-            if not canPlay:
-                return player
-        return player  # Changed this line
+    for round in range(x):
+        _sum = sum((i != 0 and i <= nums[round])
+                   for i in primes[:nums[round] + 1])
+        if _sum % 2:
+            winner = "Maria"
+        else:
+            winner = "Ben"
+        if winner:
+            result[winner] += 1
 
-    wins = [0, 0]
-    for i in range(x):
-        n = nums[i]
-        primes = getPrimes(n)
-        winner = playGame(primes, n)
-        wins[winner] += 1
-
-    if wins[0] > wins[1]:
+    if result["Maria"] > result["Ben"]:
         return "Maria"
-    elif wins[1] > wins[0]:
+    elif result["Ben"] > result["Maria"]:
         return "Ben"
-    else:
-        return None
+
+    return None
