@@ -5,6 +5,8 @@ def isWinner(x, nums):
     """Determine the winner of a game of prime numbers"""
     def getPrimes(n):
         """Get all primes up to n"""
+        if n < 2:
+            return []
         primes = [True] * (n+1)
         primes[0] = primes[1] = False
         for i in range(2, int(n**0.5)+1):
@@ -42,3 +44,4 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return None
+
