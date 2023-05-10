@@ -11,7 +11,7 @@ def isWinner(x, nums):
                 for j in range(i*i, n+1, i):
                     primes[j] = False
         return [i for i in range(2, n+1) if primes[i]]
-    
+
     def playGame(primes):
         """Play the game"""
         player = 0
