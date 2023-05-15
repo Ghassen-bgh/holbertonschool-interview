@@ -1,9 +1,13 @@
 #!/usr/bin/python3
-""" Lockboxes """
+"""
+Locked boxes method
+"""
+
+
 def canUnlockAll(boxes):
 
     numberofBoxes = len(boxes)
-    unlocked= [0]
+    unlocked = [0]
     numberofUnlockedBoxes = 1
 
     for box in unlocked:
